@@ -12,12 +12,12 @@
       android:defaultValue="4" />
 
    <MultiSelectListPreference
-      android:entries="@array/regions_list_for_settings"
-      android:entryValues="@array/regions_list"
-      android:key="pref_regionsToInclude"
-      android:title="@string/world_regions"
-      android:summary="@string/world_regions_description"
+      android:entries="@array/animals_list_for_settings"
+      android:entryValues="@array/animals_list"
+      android:key="pref_animalsToInclude"
+      android:title="@string/world_animals"
+      android:summary="@string/world_animals_description"
       android:persistent="true"
-      android:defaultValue="@array/regions_list" />
+      android:defaultValue="@array/animals_list" />
 
 </PreferenceScreen>

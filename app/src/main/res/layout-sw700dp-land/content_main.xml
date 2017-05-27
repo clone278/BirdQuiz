@@ -15,10 +15,10 @@
       android:layout_weight="1"/>
 
    <fragment
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:name="com.gotg.birdquiz.MainActivityFragment"
-      android:id="@+id/quizFragment"
-      android:layout_weight="2"
-      tools:layout="@layout/fragment_main"/>
+       android:id="@+id/quizFragment"
+       android:name="com.gotg.birdquiz.MainActivityFragment"
+       android:layout_width="0dp"
+       android:layout_height="match_parent"
+       android:layout_weight="2"
+       tools:layout="@layout/fragment_main" />
 </LinearLayout>

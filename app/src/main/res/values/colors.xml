@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-   <color name="colorPrimary">#3F51B5</color>
-   <color name="colorPrimaryDark">#303F9F</color>
-   <color name="colorAccent">#448AFF</color>
-   <color name="correct_answer">#00CC00</color>
-   <color name="incorrect_answer">#FF0000</color>
+   <color name="colorPrimary">#1b5e20</color>
+   <color name="colorPrimaryDark">#003300</color>
+   <color name="colorAccent">#4c8c4a</color>
+   <color name="correct_answer">#003300</color>
+   <color name="incorrect_answer">#ce0e00</color>
+    <color name="quiz_text_default">#000000</color>
+   <color name="fern_background">#6f969b</color>
+   <color name="common_border_color">#6f969b</color>
 </resources>

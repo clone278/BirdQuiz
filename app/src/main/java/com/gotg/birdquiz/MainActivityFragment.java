@@ -39,12 +39,12 @@ public class MainActivityFragment extends Fragment {
    // String used when logging error messages
    private static final String TAG = "FlagQuiz Activity";
 
-   private static final int FLAGS_IN_QUIZ = 10;
+   private static final int SPECIES_IN_QUIZ = 10;
 
    private List<String> fileNameList; // flag file names
-   private List<String> quizCountriesList; // countries in current quiz
-   private Set<String> regionsSet; // world regions in current quiz
-   private String correctAnswer; // correct country for the current flag
+   private List<String> quizAnimalSubgroupList; // animal subgroup in current quiz
+   private Set<String> animalsSet; // animals in current quiz
+   private String correctAnswer; // correct animal for the current species
    private int totalGuesses; // number of guesses made
    private int correctAnswers; // number of correct guesses
    private int guessRows; // number of rows displaying guess Buttons
@@ -57,6 +57,7 @@ public class MainActivityFragment extends Fragment {
    private ImageView flagImageView; // displays a flag
    private LinearLayout[] guessLinearLayouts; // rows of answer Buttons
    private TextView answerTextView; // displays correct answer
+   private ImageView answerImageView; // displays correct answer icon
 
    // configures the MainActivityFragment when its View is created
    @Override
@@ -67,7 +68,7 @@ public class MainActivityFragment extends Fragment {
          inflater.inflate(R.layout.fragment_main, container, false);
 
       fileNameList = new ArrayList<>();
-      quizCountriesList = new ArrayList<>();
+      quizAnimalSubgroupList = new ArrayList<>();
       random = new SecureRandom();
       handler = new Handler();
 
@@ -92,6 +93,7 @@ public class MainActivityFragment extends Fragment {
       guessLinearLayouts[3] =
          (LinearLayout) view.findViewById(R.id.row4LinearLayout);
       answerTextView = (TextView) view.findViewById(R.id.answerTextView);
+      answerImageView = (ImageView) view.findViewById(R.id.answerImageView);
 
       // configure listeners for the guess Buttons
       for (LinearLayout row : guessLinearLayouts) {
@@ -103,7 +105,7 @@ public class MainActivityFragment extends Fragment {
 
       // set questionNumberTextView's text
       questionNumberTextView.setText(
-         getString(R.string.question, 1, FLAGS_IN_QUIZ));
+         getString(R.string.question, 1, SPECIES_IN_QUIZ));
       return view; // return the fragment's view for display
    }
 
@@ -123,26 +125,26 @@ public class MainActivityFragment extends Fragment {
          guessLinearLayouts[row].setVisibility(View.VISIBLE);
    }
 
-   // update world regions for quiz based on values in SharedPreferences
-   public void updateRegions(SharedPreferences sharedPreferences) {
-      regionsSet =
-         sharedPreferences.getStringSet(MainActivity.REGIONS, null);
+   // update animals subgroup for quiz based on values in SharedPreferences
+   public void updateAnimals(SharedPreferences sharedPreferences) {
+      animalsSet =
+         sharedPreferences.getStringSet(MainActivity.ANIMALS, null);
    }
 
    // set up and start the next quiz
    public void resetQuiz() {
-      // use AssetManager to get image file names for enabled regions
+      // use AssetManager to get image file names for enabled animalSubgroups
       AssetManager assets = getActivity().getAssets();
       fileNameList.clear(); // empty list of image file names
 
       try {
-         // loop through each region
-         for (String region : regionsSet) {
-            // get a list of all flag image files in this region
-            String[] paths = assets.list(region);
+         // loop through each animal subgroup
+         for (String animalSubgroup : animalsSet) {
+            // get a list of all species image files in this animalSubgroup
+            String[] paths = assets.list(animalSubgroup);
 
             for (String path : paths)
-               fileNameList.add(path.replace(".png", ""));
+               fileNameList.add(path.replace(".jpg", ""));
          }
       }
       catch (IOException exception) {
@@ -151,41 +153,44 @@ public class MainActivityFragment extends Fragment {
 
       correctAnswers = 0; // reset the number of correct answers made
       totalGuesses = 0; // reset the total number of guesses the user made
-      quizCountriesList.clear(); // clear prior list of quiz countries
+      quizAnimalSubgroupList.clear(); // clear prior list of quiz countries
 
-      int flagCounter = 1;
-      int numberOfFlags = fileNameList.size();
+      int speciesCounter = 1;
+      int numberOfSpecies = fileNameList.size();
 
-      // add FLAGS_IN_QUIZ random file names to the quizCountriesList
-      while (flagCounter <= FLAGS_IN_QUIZ) {
-         int randomIndex = random.nextInt(numberOfFlags);
+      // add SPECIES_IN_QUIZ random file names to the quizAnimalSubgroupList
+      while (speciesCounter <= SPECIES_IN_QUIZ) {
+         int randomIndex = random.nextInt(numberOfSpecies);
 
          // get the random file name
          String filename = fileNameList.get(randomIndex);
 
-         // if the region is enabled and it hasn't already been chosen
-         if (!quizCountriesList.contains(filename)) {
-            quizCountriesList.add(filename); // add the file to the list
-            ++flagCounter;
+         // if the animalSubgroup is enabled and it hasn't already been chosen
+         if (!quizAnimalSubgroupList.contains(filename)) {
+            quizAnimalSubgroupList.add(filename); // add the file to the list
+            ++speciesCounter;
          }
       }
 
-      loadNextFlag(); // start the quiz by loading the first flag
+      loadNextSpecies(); // start the quiz by loading the first flag
    }
 
    // after the user guesses a correct flag, load the next flag
-   private void loadNextFlag() {
+   private void loadNextSpecies() {
       // get file name of the next flag and remove it from the list
-      String nextImage = quizCountriesList.remove(0);
+      String nextImage = quizAnimalSubgroupList.remove(0);
       correctAnswer = nextImage; // update the correct answer
-      answerTextView.setText(""); // clear answerTextView
+      answerTextView.setText(R.string.encourage_answer); // clear answerTextView
+      // reset answerImageView to default image
+      int id = getResources().getIdentifier("com.gotg.birdquiz:drawable/question", null, null);
+      answerImageView.setImageResource(id);
 
       // display current question number
       questionNumberTextView.setText(getString(
-         R.string.question, (correctAnswers + 1), FLAGS_IN_QUIZ));
+         R.string.question, (correctAnswers + 1), SPECIES_IN_QUIZ));
 
-      // extract the region from the next image's name
-      String region = nextImage.substring(0, nextImage.indexOf('-'));
+      // extract the animalSubgroup from the next image's name
+      String animalSubgroup = nextImage.substring(0, nextImage.indexOf('-'));
 
       // use AssetManager to load next image from assets folder
       AssetManager assets = getActivity().getAssets();
@@ -193,7 +198,7 @@ public class MainActivityFragment extends Fragment {
       // get an InputStream to the asset representing the next flag
       // and try to use the InputStream
       try (InputStream stream =
-              assets.open(region + "/" + nextImage + ".png")) {
+              assets.open(animalSubgroup + "/" + nextImage + ".jpg")) {
          // load the asset as a Drawable and display on the flagImageView
          Drawable flag = Drawable.createFromStream(stream, nextImage);
          flagImageView.setImageDrawable(flag);
@@ -221,9 +226,9 @@ public class MainActivityFragment extends Fragment {
                (Button) guessLinearLayouts[row].getChildAt(column);
             newGuessButton.setEnabled(true);
 
-            // get country name and set it as newGuessButton's text
+            // get species name and set it as newGuessButton's text
             String filename = fileNameList.get((row * 2) + column);
-            newGuessButton.setText(getCountryName(filename));
+            newGuessButton.setText(getSpeciesName(filename));
          }
       }
 
@@ -231,12 +236,12 @@ public class MainActivityFragment extends Fragment {
       int row = random.nextInt(guessRows); // pick random row
       int column = random.nextInt(2); // pick random column
       LinearLayout randomRow = guessLinearLayouts[row]; // get the row
-      String countryName = getCountryName(correctAnswer);
-      ((Button) randomRow.getChildAt(column)).setText(countryName);
+      String speciesName = getSpeciesName(correctAnswer);
+      ((Button) randomRow.getChildAt(column)).setText(speciesName);
    }
 
-   // parses the country flag file name and returns the country name
-   private String getCountryName(String name) {
+   // parses the species file name and returns the species name
+   private String getSpeciesName(String name) {
       return name.substring(name.indexOf('-') + 1).replace('_', ' ');
    }
 
@@ -268,7 +273,7 @@ public class MainActivityFragment extends Fragment {
                // called when the animation finishes
                @Override
                public void onAnimationEnd(Animator animation) {
-                  loadNextFlag();
+                  loadNextSpecies();
                }
             }
          );
@@ -288,22 +293,26 @@ public class MainActivityFragment extends Fragment {
       public void onClick(View v) {
          Button guessButton = ((Button) v);
          String guess = guessButton.getText().toString();
-         String answer = getCountryName(correctAnswer);
+         String answer = getSpeciesName(correctAnswer);
          ++totalGuesses; // increment number of guesses the user has made
 
          if (guess.equals(answer)) { // if the guess is correct
             ++correctAnswers; // increment the number of correct answers
 
             // display correct answer in green text
-            answerTextView.setText(answer + "!");
+            answerTextView.setText(answer);
             answerTextView.setTextColor(
                getResources().getColor(R.color.correct_answer,
                   getContext().getTheme()));
 
+            // display correct answer icon
+            int id = getResources().getIdentifier("com.gotg.birdquiz:drawable/thumbs_up", null, null);
+            answerImageView.setImageResource(id);
+
             disableButtons(); // disable all guess Buttons
 
-            // if the user has correctly identified FLAGS_IN_QUIZ flags
-            if (correctAnswers == FLAGS_IN_QUIZ) {
+            // if the user has correctly identified SPECIES_IN_QUIZ flags
+            if (correctAnswers == SPECIES_IN_QUIZ) {
                // DialogFragment to display quiz stats and start new quiz
                DialogFragment quizResults =
                   new DialogFragment() {
@@ -349,10 +358,14 @@ public class MainActivityFragment extends Fragment {
          else { // answer was incorrect
             flagImageView.startAnimation(shakeAnimation); // play shake
 
+
             // display "Incorrect!" in red
             answerTextView.setText(R.string.incorrect_answer);
             answerTextView.setTextColor(getResources().getColor(
                R.color.incorrect_answer, getContext().getTheme()));
+            // display thumbs down icon
+            int id = getResources().getIdentifier("com.gotg.birdquiz:drawable/thumbs_down", null, null);
+            answerImageView.setImageResource(id);
             guessButton.setEnabled(false); // disable incorrect answer
          }
       }

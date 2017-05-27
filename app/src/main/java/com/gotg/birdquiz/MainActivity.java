@@ -21,7 +21,7 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
    // keys for reading data from SharedPreferences
    public static final String CHOICES = "pref_numberOfChoices";
-   public static final String REGIONS = "pref_regionsToInclude";
+   public static final String ANIMALS = "pref_animalsToInclude";
 
    private boolean phoneDevice = true; // used to force portrait mode
    private boolean preferencesChanged = true; // did preferences change?
@@ -68,9 +68,10 @@ public class MainActivity extends AppCompatActivity {
          MainActivityFragment quizFragment = (MainActivityFragment)
             getSupportFragmentManager().findFragmentById(
                R.id.quizFragment);
+
          quizFragment.updateGuessRows(
             PreferenceManager.getDefaultSharedPreferences(this));
-         quizFragment.updateRegions(
+         quizFragment.updateAnimals(
             PreferenceManager.getDefaultSharedPreferences(this));
          quizFragment.resetQuiz();
          preferencesChanged = false;
@@ -118,24 +119,24 @@ public class MainActivity extends AppCompatActivity {
                quizFragment.updateGuessRows(sharedPreferences);
                quizFragment.resetQuiz();
             }
-            else if (key.equals(REGIONS)) { // regions to include changed
-               Set<String> regions =
-                  sharedPreferences.getStringSet(REGIONS, null);
+            else if (key.equals(ANIMALS)) { // animalSubgroups to include changed
+               Set<String> animalSubgroups =
+                  sharedPreferences.getStringSet(ANIMALS, null);
 
-               if (regions != null && regions.size() > 0) {
-                  quizFragment.updateRegions(sharedPreferences);
+               if (animalSubgroups != null && animalSubgroups.size() > 0) {
+                  quizFragment.updateAnimals(sharedPreferences);
                   quizFragment.resetQuiz();
                }
                else {
-                  // must select one region--set North America as default
+                  // must select one animal --set Birds as default
                   SharedPreferences.Editor editor =
                      sharedPreferences.edit();
-                  regions.add(getString(R.string.default_region));
-                  editor.putStringSet(REGIONS, regions);
+                  animalSubgroups.add(getString(R.string.default_animal));
+                  editor.putStringSet(ANIMALS, animalSubgroups);
                   editor.apply();
 
                   Toast.makeText(MainActivity.this,
-                     R.string.default_region_message,
+                     R.string.default_animal_message,
                      Toast.LENGTH_SHORT).show();
                }
             }
