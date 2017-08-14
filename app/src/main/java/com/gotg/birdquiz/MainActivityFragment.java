@@ -40,8 +40,7 @@ public class MainActivityFragment extends Fragment {
    // String used when logging error messages
    private static final String TAG = "FlagQuiz Activity";
 
-   private static final int SPECIES_IN_QUIZ = 10; // bjb fix
-
+   private int questionsInQuiz = 10; // number of questions in the quiz
    private List<String> fileNameList; // flag file names
    private List<String> quizAnimalSubgroupList; // animal subgroup in current quiz
    private Set<String> animalsSet; // animals in current quiz
@@ -106,8 +105,16 @@ public class MainActivityFragment extends Fragment {
 
       // set questionNumberTextView's text
       questionNumberTextView.setText(
-         getString(R.string.question, 1, SPECIES_IN_QUIZ));
+         getString(R.string.question, 1, questionsInQuiz));
       return view; // return the fragment's view for display
+   }
+
+   // Update numQuestions based on the value in SharedPreferences
+   public void updateNumberOfQuestions(SharedPreferences sharedPreferences) {
+
+      // get the number of questions to be displaued
+      String numberOfQuestions = sharedPreferences.getString(MainActivity.QUESTIONS, null);
+      questionsInQuiz = Integer.parseInt(numberOfQuestions);
    }
 
    // update guessRows based on value in SharedPreferences
@@ -165,8 +172,8 @@ public class MainActivityFragment extends Fragment {
       int speciesCounter = 1;
       int numberOfSpecies = fileNameList.size();
 
-      // add SPECIES_IN_QUIZ random file names to the quizAnimalSubgroupList
-      while (speciesCounter <= SPECIES_IN_QUIZ) {
+      // add questionsInQuiz random file names to the quizAnimalSubgroupList
+      while (speciesCounter <= questionsInQuiz) {
          int randomIndex = random.nextInt(numberOfSpecies);
 
          // get the random file name
@@ -194,7 +201,7 @@ public class MainActivityFragment extends Fragment {
 
       // display current question number
       questionNumberTextView.setText(getString(
-         R.string.question, (correctAnswers + 1), SPECIES_IN_QUIZ));
+         R.string.question, (correctAnswers + 1), questionsInQuiz));
 
       // extract the animalSubgroup from the next image's name
       String animalSubgroup = nextImage.substring(0, nextImage.indexOf('-'));
@@ -318,8 +325,8 @@ public class MainActivityFragment extends Fragment {
 
             disableButtons(); // disable all guess Buttons
 
-            // if the user has correctly identified SPECIES_IN_QUIZ flags
-            if (correctAnswers == SPECIES_IN_QUIZ) {
+            // if the user has correctly identified questionsInQuiz flags
+            if (correctAnswers == questionsInQuiz) {
 
                // DialogFragment to display quiz stats and start new quiz
                DialogFragment quizResults =

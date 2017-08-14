@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
    // keys for reading data from SharedPreferences
    public static final String CHOICES = "pref_numberOfChoices";
    public static final String ANIMALS = "pref_animalsToInclude";
+   public static final String QUESTIONS = "pref_numberOfQuestions";
 
    private boolean phoneDevice = true; // used to force portrait mode
    private boolean preferencesChanged = true; // did preferences change?
@@ -72,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
          quizFragment.updateGuessRows(
             PreferenceManager.getDefaultSharedPreferences(this));
+         quizFragment.updateNumberOfQuestions(
+                 PreferenceManager.getDefaultSharedPreferences(this));
          quizFragment.updateAnimals(
             PreferenceManager.getDefaultSharedPreferences(this));
          quizFragment.resetQuiz();
@@ -118,6 +121,10 @@ public class MainActivity extends AppCompatActivity {
 
             if (key.equals(CHOICES)) { // # of choices to display changed
                quizFragment.updateGuessRows(sharedPreferences);
+               quizFragment.resetQuiz();
+            }
+            else if (key.equals(QUESTIONS)){ // # of questions to show changed
+               quizFragment.updateNumberOfQuestions(sharedPreferences);
                quizFragment.resetQuiz();
             }
             else if (key.equals(ANIMALS)) { // animalSubgroups to include changed

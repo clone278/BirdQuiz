@@ -11,6 +11,15 @@
       android:persistent="true"
       android:defaultValue="4" />
 
+   <ListPreference
+       android:entries="@array/num_questions_list"
+       android:entryValues="@array/num_questions_list"
+       android:key="pref_numberOfQuestions"
+       android:title="@string/number_of_questions"
+       android:summary="@string/number_of_questions_description"
+       android:persistent="true"
+       android:defaultValue="2" />
+
    <MultiSelectListPreference
       android:entries="@array/animals_list_for_settings"
       android:entryValues="@array/animals_list"
