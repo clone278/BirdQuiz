@@ -15,6 +15,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
@@ -39,7 +40,7 @@ public class MainActivityFragment extends Fragment {
    // String used when logging error messages
    private static final String TAG = "FlagQuiz Activity";
 
-   private static final int SPECIES_IN_QUIZ = 10;
+   private static final int SPECIES_IN_QUIZ = 10; // bjb fix
 
    private List<String> fileNameList; // flag file names
    private List<String> quizAnimalSubgroupList; // animal subgroup in current quiz
@@ -129,6 +130,12 @@ public class MainActivityFragment extends Fragment {
    public void updateAnimals(SharedPreferences sharedPreferences) {
       animalsSet =
          sharedPreferences.getStringSet(MainActivity.ANIMALS, null);
+   }
+
+   public void gotoDonations()
+   {
+      Intent intent = new Intent(getActivity(), DonateActivity.class);
+      startActivity(intent);
    }
 
    // set up and start the next quiz
@@ -313,14 +320,17 @@ public class MainActivityFragment extends Fragment {
 
             // if the user has correctly identified SPECIES_IN_QUIZ flags
             if (correctAnswers == SPECIES_IN_QUIZ) {
+
                // DialogFragment to display quiz stats and start new quiz
                DialogFragment quizResults =
                   new DialogFragment() {
                      // create an AlertDialog and return it
                      @Override
                      public Dialog onCreateDialog(Bundle bundle) {
+
                         AlertDialog.Builder builder =
                            new AlertDialog.Builder(getActivity());
+
                         builder.setMessage(
                            getString(R.string.results,
                               totalGuesses,
@@ -334,6 +344,15 @@ public class MainActivityFragment extends Fragment {
                                  resetQuiz();
                               }
                            }
+                        );
+
+                        builder.setNegativeButton(R.string.donate,
+                                new DialogInterface.OnClickListener() {
+                                   public void onClick(DialogInterface dialog,
+                                                       int id) {
+                                      gotoDonations();
+                                   }
+                                }
                         );
 
                         return builder.create(); // return the AlertDialog

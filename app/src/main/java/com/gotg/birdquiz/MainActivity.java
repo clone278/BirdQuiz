@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
       super.onStart();
 
       if (preferencesChanged) {
+
          // now that the default preferences have been set,
          // initialize MainActivityFragment and start the quiz
          MainActivityFragment quizFragment = (MainActivityFragment)
