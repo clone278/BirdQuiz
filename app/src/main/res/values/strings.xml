@@ -20,6 +20,8 @@
    <string name="number_of_questions">Number of Questions</string>
    <string name="number_of_choices_questions">Display 10, 20 or 50 questions</string>
    <string name="number_of_questions_description">Number of questions in the quiz</string>
+   <string name="intro_heading">Introduction</string>
+   <string name="intro_toptext"><![CDATA[<p>Test your knowledge of New Zealand (NZ) birds  by correctly identifying a bird by name from a selection of images.</p><p>Access the settings during the quiz to change the total number of questions and the number of options displayed at each question.  More options makes it harder!</p><p>At the end of the quiz there is the option to \'reset quiz\', which will provide another random selection of birds from a total of 370 odd images. Enjoy!</p>]]></string>
 
    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

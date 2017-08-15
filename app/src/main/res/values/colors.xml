@@ -8,4 +8,6 @@
     <color name="quiz_text_default">#000000</color>
    <color name="fern_background">#6f969b</color>
    <color name="common_border_color">#6f969b</color>
+   <color name="support_text_default">#fff</color>
+
 </resources>

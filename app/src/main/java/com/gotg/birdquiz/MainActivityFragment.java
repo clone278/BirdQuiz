@@ -64,8 +64,8 @@ public class MainActivityFragment extends Fragment {
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
       super.onCreateView(inflater, container, savedInstanceState);
-      View view =
-         inflater.inflate(R.layout.fragment_main, container, false);
+
+      View view = inflater.inflate(R.layout.fragment_main, container, false);
 
       fileNameList = new ArrayList<>();
       quizAnimalSubgroupList = new ArrayList<>();
@@ -104,8 +104,8 @@ public class MainActivityFragment extends Fragment {
       }
 
       // set questionNumberTextView's text
-      questionNumberTextView.setText(
-         getString(R.string.question, 1, questionsInQuiz));
+      questionNumberTextView.setText(getString(R.string.question, 1, questionsInQuiz));
+
       return view; // return the fragment's view for display
    }
 
@@ -119,6 +119,7 @@ public class MainActivityFragment extends Fragment {
 
    // update guessRows based on value in SharedPreferences
    public void updateGuessRows(SharedPreferences sharedPreferences) {
+
       // get the number of guess buttons that should be displayed
       String choices =
          sharedPreferences.getString(MainActivity.CHOICES, null);
@@ -191,6 +192,7 @@ public class MainActivityFragment extends Fragment {
 
    // after the user guesses a correct flag, load the next flag
    private void loadNextSpecies() {
+
       // get file name of the next flag and remove it from the list
       String nextImage = quizAnimalSubgroupList.remove(0);
       correctAnswer = nextImage; // update the correct answer

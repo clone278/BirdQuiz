@@ -17,10 +17,11 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     // Add an intro before starting the quiz
-    public void onClick(View view)
+    public void startQuiz(View view)
     {
         // Create the main quiz page as an intent
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
 }
