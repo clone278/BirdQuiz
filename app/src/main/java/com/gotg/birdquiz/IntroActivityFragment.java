@@ -31,15 +31,6 @@ public class IntroActivityFragment extends Fragment {
 
     private void populateIntroView()
     {
-        introToptextTextView.setText(Html.fromHtml(getString(R.string.intro_toptext)));
+        introToptextTextView.setText(Util.fromHtml(getString(R.string.intro_toptext)));
     }
-/*
-    public void startQuiz(View view)
-    {
-        // do something in response to someone clicking the start button
-        // Create the main quiz page as an intent
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
-    }
-    */
 }

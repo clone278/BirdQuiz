@@ -40,7 +40,7 @@ public class MainActivityFragment extends Fragment {
    // String used when logging error messages
    private static final String TAG = "FlagQuiz Activity";
 
-   private int questionsInQuiz = 10; // number of questions in the quiz
+   private int questionsInQuiz; // number of questions in the quiz
    private List<String> fileNameList; // flag file names
    private List<String> quizAnimalSubgroupList; // animal subgroup in current quiz
    private Set<String> animalsSet; // animals in current quiz
@@ -112,9 +112,8 @@ public class MainActivityFragment extends Fragment {
    // Update numQuestions based on the value in SharedPreferences
    public void updateNumberOfQuestions(SharedPreferences sharedPreferences) {
 
-      // get the number of questions to be displaued
-      String numberOfQuestions = sharedPreferences.getString(MainActivity.QUESTIONS, null);
-      questionsInQuiz = Integer.parseInt(numberOfQuestions);
+      // get the number of questions to be displayed
+      questionsInQuiz = sharedPreferences.getInt(MainActivity.QUESTIONS, 20);
    }
 
    // update guessRows based on value in SharedPreferences
@@ -136,8 +135,7 @@ public class MainActivityFragment extends Fragment {
 
    // update animals subgroup for quiz based on values in SharedPreferences
    public void updateAnimals(SharedPreferences sharedPreferences) {
-      animalsSet =
-         sharedPreferences.getStringSet(MainActivity.ANIMALS, null);
+      animalsSet = sharedPreferences.getStringSet(MainActivity.ANIMALS, null);
    }
 
    public void gotoDonations()
@@ -327,7 +325,7 @@ public class MainActivityFragment extends Fragment {
 
             disableButtons(); // disable all guess Buttons
 
-            // if the user has correctly identified questionsInQuiz flags
+            // if the user has correctly identified all the answers then display results
             if (correctAnswers == questionsInQuiz) {
 
                // DialogFragment to display quiz stats and start new quiz
@@ -343,7 +341,7 @@ public class MainActivityFragment extends Fragment {
                         builder.setMessage(
                            getString(R.string.results,
                               totalGuesses,
-                              (1000 / (double) totalGuesses)));
+                              (questionsInQuiz * 100 / (double) totalGuesses)));
 
                         // "Reset Quiz" Button
                         builder.setPositiveButton(R.string.reset_quiz,

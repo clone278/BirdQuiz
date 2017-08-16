@@ -5,7 +5,6 @@ import android.text.Spanned;
 public class Util {
 
 
-    /* TODO - LOOKS LIKE I NEED TO UPDATE THE PROJECT VERSION
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String html){
         Spanned result;
@@ -16,5 +15,5 @@ public class Util {
         }
         return result;
     }
-    */
+
 }

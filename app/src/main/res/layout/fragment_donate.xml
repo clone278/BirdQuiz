@@ -1,0 +1,120 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:showIn="@layout/activity_donate"
+                tools:context=".DonateActivityFragment"
+              android:orientation="vertical"
+              android:id="@+id/donateLinearLayout"
+               android:background="@drawable/fern_darkest">
+
+   <TextView
+       android:id="@+id/donateTextView"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal"
+       android:layout_marginBottom="@dimen/spacing"
+       android:text="@string/donate_heading"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textColor="@color/support_text_default"
+       android:textStyle="bold" />
+
+   <TextView
+       android:id="@+id/aboutBirdsOnlineTextView"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal"
+       android:layout_marginBottom="@dimen/spacing"
+       android:text="Lorem ipsum"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textColor="@color/support_text_default"
+       android:textStyle="bold"
+       android:clickable="true"
+       android:linksClickable="true"
+       />
+
+   <ImageView
+       android:id="@+id/birdsOnlineImageView"
+       android:layout_width="214dp"
+       android:layout_height="187dp"
+       android:layout_gravity="center_horizontal"
+       android:layout_marginBottom="@dimen/spacing"
+       android:layout_marginLeft="@dimen/activity_horizontal_margin"
+       android:layout_marginRight="@dimen/activity_horizontal_margin"
+       android:adjustViewBounds="true"
+       android:background="@android:color/transparent"
+       android:contentDescription="@string/image_description_birdsonline"
+       android:maxHeight="250dp"
+       android:scaleType="fitCenter"
+       android:src="@drawable/birdsonline" />
+
+   <TextView
+       android:id="@+id/nzForestBirdTextView"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal"
+       android:layout_marginBottom="@dimen/spacing"
+       android:text="Lorem ipsum"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textColor="@color/support_text_default"
+       android:textStyle="bold" />
+
+   <ImageButton
+       android:id="@+id/donateImageButton"
+       android:layout_width="278dp"
+       android:layout_height="101dp"
+       android:layout_gravity="center_horizontal"
+       android:layout_marginBottom="@dimen/spacing"
+       android:layout_marginLeft="@dimen/activity_horizontal_margin"
+       android:layout_marginRight="@dimen/activity_horizontal_margin"
+       android:adjustViewBounds="true"
+       android:background="@android:color/transparent"
+       android:cropToPadding="true"
+       android:maxHeight="50dp"
+       android:onClick="gotoDonationPage"
+       android:scaleType="fitCenter"
+       android:src="@drawable/donate_button" />
+
+   <TextView
+       android:id="@+id/aboutGregStraightTextView"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal"
+       android:layout_marginBottom="@dimen/spacing"
+       android:text="Lorem ipsum"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textColor="@color/support_text_default"
+       android:textStyle="bold"
+       android:clickable="true"
+       android:linksClickable="true"
+       />
+
+   <ImageView
+       android:id="@+id/gregStraightImageView"
+       android:layout_width="300dp"
+       android:layout_height="118dp"
+       android:layout_gravity="center_horizontal"
+       android:layout_marginBottom="@dimen/spacing"
+       android:layout_marginLeft="@dimen/activity_horizontal_margin"
+       android:layout_marginRight="@dimen/activity_horizontal_margin"
+       android:adjustViewBounds="true"
+       android:contentDescription="@string/image_description_tuibirds"
+       android:maxHeight="250dp"
+       android:scaleType="fitCenter"
+       android:background="@android:color/transparent"
+       android:lines="2"
+       android:src="@drawable/tuis" />
+
+</LinearLayout>
+
+</ScrollView>

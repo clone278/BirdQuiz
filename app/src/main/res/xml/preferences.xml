@@ -18,7 +18,7 @@
        android:title="@string/number_of_questions"
        android:summary="@string/number_of_questions_description"
        android:persistent="true"
-       android:defaultValue="2" />
+       android:defaultValue="20" />
 
    <MultiSelectListPreference
       android:entries="@array/animals_list_for_settings"

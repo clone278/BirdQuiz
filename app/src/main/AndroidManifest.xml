@@ -30,7 +30,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gotg.birdquiz.MainActivity" />
         </activity>
-        <activity android:name=".DonateActivity"></activity>
+        <activity
+            android:name=".DonateActivity"
+            android:label="@string/app_name"></activity>
     </application>
 
 </manifest>

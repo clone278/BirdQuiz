@@ -8,7 +8,6 @@
     android:fitsSystemWindows="true"
     tools:context=".IntroActivity">
 
-
     <include layout="@layout/content_intro"/>
 
 </android.support.design.widget.CoordinatorLayout>
