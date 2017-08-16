@@ -37,8 +37,8 @@
        android:layout_marginBottom="@dimen/spacing"
        android:text="Lorem ipsum"
        android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textSize="@dimen/description_text"
        android:textColor="@color/support_text_default"
-       android:textStyle="bold"
        android:clickable="true"
        android:linksClickable="true"
        />
@@ -66,8 +66,8 @@
        android:layout_marginBottom="@dimen/spacing"
        android:text="Lorem ipsum"
        android:textAppearance="?android:attr/textAppearanceMedium"
-       android:textColor="@color/support_text_default"
-       android:textStyle="bold" />
+       android:textSize="@dimen/description_text"
+       android:textColor="@color/support_text_default" />
 
    <ImageButton
        android:id="@+id/donateImageButton"
@@ -93,8 +93,8 @@
        android:layout_marginBottom="@dimen/spacing"
        android:text="Lorem ipsum"
        android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textSize="@dimen/description_text"
        android:textColor="@color/support_text_default"
-       android:textStyle="bold"
        android:clickable="true"
        android:linksClickable="true"
        />

@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivityFragment extends Fragment {
+
    // String used when logging error messages
    private static final String TAG = "FlagQuiz Activity";
 
@@ -113,7 +115,8 @@ public class MainActivityFragment extends Fragment {
    public void updateNumberOfQuestions(SharedPreferences sharedPreferences) {
 
       // get the number of questions to be displayed
-      questionsInQuiz = sharedPreferences.getInt(MainActivity.QUESTIONS, 20);
+      String numberOfQuestions = sharedPreferences.getString(MainActivity.QUESTIONS, null);
+      questionsInQuiz = Integer.parseInt(numberOfQuestions);
    }
 
    // update guessRows based on value in SharedPreferences
@@ -328,47 +331,17 @@ public class MainActivityFragment extends Fragment {
             // if the user has correctly identified all the answers then display results
             if (correctAnswers == questionsInQuiz) {
 
-               // DialogFragment to display quiz stats and start new quiz
-               DialogFragment quizResults =
-                  new DialogFragment() {
-                     // create an AlertDialog and return it
-                     @Override
-                     public Dialog onCreateDialog(Bundle bundle) {
+               ResultsDialogFragment quizResults = new ResultsDialogFragment();
+               Bundle args = new Bundle();
+               args.putInt("totalGuesses", totalGuesses);
+               args.putInt("questionsInQuiz", questionsInQuiz);
 
-                        AlertDialog.Builder builder =
-                           new AlertDialog.Builder(getActivity());
-
-                        builder.setMessage(
-                           getString(R.string.results,
-                              totalGuesses,
-                              (questionsInQuiz * 100 / (double) totalGuesses)));
-
-                        // "Reset Quiz" Button
-                        builder.setPositiveButton(R.string.reset_quiz,
-                           new DialogInterface.OnClickListener() {
-                              public void onClick(DialogInterface dialog,
-                                 int id) {
-                                 resetQuiz();
-                              }
-                           }
-                        );
-
-                        builder.setNegativeButton(R.string.donate,
-                                new DialogInterface.OnClickListener() {
-                                   public void onClick(DialogInterface dialog,
-                                                       int id) {
-                                      gotoDonations();
-                                   }
-                                }
-                        );
-
-                        return builder.create(); // return the AlertDialog
-                     }
-                  };
+               quizResults.setArguments(args);
 
                // use FragmentManager to display the DialogFragment
                quizResults.setCancelable(false);
-               quizResults.show(getFragmentManager(), "quiz results");
+               quizResults.show(getActivity().getSupportFragmentManager(), "quiz results");
+
             }
             else { // answer is correct but quiz is not over
                // load the next flag after a 2-second delay
@@ -396,6 +369,55 @@ public class MainActivityFragment extends Fragment {
          }
       }
    };
+
+   public static class ResultsDialogFragment extends DialogFragment {
+
+      static ResultsDialogFragment newInstance() {
+         return new ResultsDialogFragment();
+      }
+
+      @Override
+      public Dialog onCreateDialog(Bundle bundle) {
+
+         Bundle args = getArguments();
+         int totalGuesses = args.getInt("totalGuesses");
+         int questionsInQuiz = args.getInt("questionsInQuiz");
+
+         AlertDialog.Builder builder =
+                 new AlertDialog.Builder(getActivity());
+
+         builder.setMessage(
+                 getString(R.string.results,
+                         totalGuesses,
+                         (questionsInQuiz * 100 / (double) totalGuesses)));
+
+         final MainActivityFragment quizFragment = (MainActivityFragment)
+                 getActivity().getSupportFragmentManager().findFragmentById(
+                         R.id.quizFragment);
+
+
+         // "Reset Quiz" Button
+         builder.setPositiveButton(R.string.reset_quiz,
+                 new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int id) {
+                       quizFragment.resetQuiz();
+                    }
+                 }
+         );
+
+         builder.setNegativeButton(R.string.donate,
+                 new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int id) {
+                       quizFragment.gotoDonations();
+                    }
+                 }
+         );
+
+         return builder.create(); // return the AlertDialog
+      }
+   }
 
    // utility method that disables all answer Buttons
    private void disableButtons() {

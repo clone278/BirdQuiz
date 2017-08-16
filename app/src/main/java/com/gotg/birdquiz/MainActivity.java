@@ -3,6 +3,11 @@
 // MainActivityFragment and SettingsActivityFragment on a tablet
 package com.gotg.birdquiz;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -108,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
       startActivity(preferencesIntent);
       return super.onOptionsItemSelected(item);
    }
+
+
 
    // listener for changes to the app's SharedPreferences
    private OnSharedPreferenceChangeListener preferencesChangeListener =
