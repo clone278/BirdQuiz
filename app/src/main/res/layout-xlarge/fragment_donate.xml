@@ -46,7 +46,7 @@
 
    <ImageView
        android:id="@+id/birdsOnlineImageView"
-       android:layout_width="200dp"
+       android:layout_width="400dp"
        android:layout_height="wrap_content"
        android:layout_gravity="center_horizontal"
        android:layout_marginBottom="@dimen/spacing"
@@ -71,7 +71,7 @@
 
    <ImageButton
        android:id="@+id/donateImageButton"
-       android:layout_width="200dp"
+       android:layout_width="400dp"
        android:layout_height="wrap_content"
        android:layout_gravity="center_horizontal"
        android:layout_marginBottom="@dimen/spacing"
@@ -100,7 +100,7 @@
 
    <ImageView
        android:id="@+id/gregStraightImageView"
-       android:layout_width="200dp"
+       android:layout_width="400dp"
        android:layout_height="wrap_content"
        android:layout_gravity="center_horizontal"
        android:layout_marginBottom="@dimen/spacing"

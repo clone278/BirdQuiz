@@ -13,6 +13,7 @@
               android:id="@+id/quizLinearLayout"
                android:background="@drawable/fern_darkest">
 
+
    <TextView
        android:id="@+id/introToptextTextView"
        android:layout_width="wrap_content"
@@ -22,7 +23,7 @@
        android:text="@string/intro_toptext"
        android:textAppearance="?android:attr/textAppearanceMedium"
        android:textColor="@color/support_text_default"
-       android:textSize="@dimen/description_text" />
+       android:textSize="@dimen/description_text_size" />
 
    <LinearLayout
        android:layout_width="match_parent"
